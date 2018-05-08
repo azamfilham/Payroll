@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Payroll.ViewModel.EmployeeSalaryViewModel>
+
+
+@*@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalaryComponentCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalaryComponentName)
+        </td>
+                
+        <td>
+            @Html.DisplayFor(modelItem => item.BasicValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinalValue)
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-remove">
+                Remove
+            </button>
+        </td>
+    </tr>
+}*@
+
+@foreach (var item in Model)
+{
+    @Html.Partial("_GetSalaryComponent", item)
+}
