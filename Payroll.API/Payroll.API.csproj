@@ -166,10 +166,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\DivisionController.cs" />
+    <Compile Include="Controllers\EmployeeSalariesController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
+    <Compile Include="Controllers\JobPositionsController.cs" />
     <Compile Include="Controllers\SellingDetailsController.cs" />
     <Compile Include="Controllers\SellingHeadersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
