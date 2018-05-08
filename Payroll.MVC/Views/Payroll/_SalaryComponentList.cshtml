@@ -44,14 +44,13 @@
 </table>
 
 <script type="text/javascript">
-    $(".btn-select").click(function () {
-        //alert($(this).attr("data-id"));
+    //alert($("#JobPositionId").val());
+    $(".btn-select").click(function () {        
         $.ajax({
             url: '@Url.Action("GetSalaryComponent","Payroll")',
             type: 'get',
-            data: { id: $(this).attr("data-id")},
+            data: { jobPositionId: $("#JobPositionId").val(), salaryComponentId: $(this).attr("data-id") },
             success: function (result) {
-
                 $("#employee-payroll").append(result);                
                 $("#modal-Form").modal("hide");
             }

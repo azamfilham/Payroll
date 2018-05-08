@@ -62,9 +62,15 @@ namespace Payroll.MVC.Controllers
             return PartialView("_SalaryComponentList", SalaryComponentRepo.Get());
         }
 
-        public ActionResult GetSalaryComponent(int id)
+        public ActionResult GetSalaryComponent(int jobPositionId, int salaryComponentId)
         {
-            return PartialView("_GetSalaryComponent", EmployeeSalaryRepo.GetByComponentId(id));
+            EmployeeSalaryViewModel model = EmployeeSalaryRepo.GetByComponentId(salaryComponentId);
+            SalaryDefaultValueViewModel sd = SalaryDefaultValueRepo.GetByJobPosition(jobPositionId, salaryComponentId);
+            if (sd != null)
+            {
+                model.BasicValue = sd.Value;
+            }
+            return PartialView("_GetSalaryComponent", model );
         }
 
         [HttpPost]
