@@ -54,3 +54,6 @@ D:\Bootcamp\Bootcamp Batch 147 dotNet\Payroll\Payroll.API\bin\Payroll.ViewModel.
 D:\Bootcamp\Bootcamp Batch 147 dotNet\Payroll\Payroll.API\bin\EntityFramework.xml
 D:\Bootcamp\Bootcamp Batch 147 dotNet\Payroll\Payroll.API\bin\EntityFramework.SqlServer.dll
 D:\Bootcamp\Bootcamp Batch 147 dotNet\Payroll\Payroll.API\bin\EntityFramework.SqlServer.xml
+D:\Bootcamp\Bootcamp Batch 147 dotNet\Payroll\Payroll.API\bin\System.Web.Cors.dll
+D:\Bootcamp\Bootcamp Batch 147 dotNet\Payroll\Payroll.API\bin\System.Web.Http.Cors.dll
+D:\Bootcamp\Bootcamp Batch 147 dotNet\Payroll\Payroll.API\bin\System.Web.Http.Cors.xml

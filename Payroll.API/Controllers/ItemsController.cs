@@ -6,15 +6,18 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Payroll.API.Controllers
 {
+   
     public class ItemsController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<ItemViewModel> Get()
+        [HttpGet]
+        public IEnumerable<ItemViewModel> Get(string search)
         {
-            return ItemRepo.Get();
+            return ItemRepo.GetTen(search);
         }
 
         // GET api/<controller>/5
@@ -35,6 +38,7 @@ namespace Payroll.API.Controllers
             entity.Id = id;
             return ItemRepo.Update(entity);
         }
+
 
         // DELETE api/<controller>/5
         public Responses Delete(int id)

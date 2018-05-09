@@ -137,6 +137,7 @@
     <Compile Include="Controllers\JobPositionController.cs" />
     <Compile Include="Controllers\PayrollController.cs" />
     <Compile Include="Controllers\PayrollPeriodController.cs" />
+    <Compile Include="Controllers\POSController.cs" />
     <Compile Include="Controllers\SalaryComponentController.cs" />
     <Compile Include="Controllers\SalaryDefaultValueController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1068,6 +1069,7 @@
     <Content Include="Views\Payroll\_SalaryComponentList.cshtml" />
     <Content Include="Views\Payroll\_GetSalaryComponent.cshtml" />
     <Content Include="Views\Payroll\_RemoveComponent.cshtml" />
+    <Content Include="Views\POS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

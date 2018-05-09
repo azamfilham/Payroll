@@ -57,6 +57,7 @@
     <Compile Include="ItemRepo.cs" />
     <Compile Include="JobPositionRepo.cs" />
     <Compile Include="PayrollPeriodRepo.cs" />
+    <Compile Include="POSRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalaryComponentRepo.cs" />
     <Compile Include="SalaryDefaultValueRepo.cs" />
