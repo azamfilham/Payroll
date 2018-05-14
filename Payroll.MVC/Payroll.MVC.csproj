@@ -140,6 +140,8 @@
     <Compile Include="Controllers\POSController.cs" />
     <Compile Include="Controllers\SalaryComponentController.cs" />
     <Compile Include="Controllers\SalaryDefaultValueController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1070,6 +1072,8 @@
     <Content Include="Views\Payroll\_GetSalaryComponent.cshtml" />
     <Content Include="Views\Payroll\_RemoveComponent.cshtml" />
     <Content Include="Views\POS\Index.cshtml" />
+    <Content Include="Views\User\Registration.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1084,6 +1088,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Payroll.DataModel\Payroll.DataModel.csproj">
+      <Project>{535522b3-fab3-4f3d-9f38-4822738695b4}</Project>
+      <Name>Payroll.DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Payroll.Repository\Payroll.Repository.csproj">
       <Project>{509fa8ee-8978-4f64-82c7-0e989bef13ab}</Project>
       <Name>Payroll.Repository</Name>

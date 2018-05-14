@@ -63,6 +63,7 @@
     <Compile Include="SalaryDefaultValueRepo.cs" />
     <Compile Include="SellingDetailRepo.cs" />
     <Compile Include="SellingHeaderRepo.cs" />
+    <Compile Include="UserRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Payroll.DataModel\Payroll.DataModel.csproj">

@@ -6,8 +6,16 @@
                 <img src="~/AdminLTE/dist/img/user.svg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Azam Fikri Ilham</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <p>@HttpContext.Current.User.Identity.Name</p>
+                
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
+                    }
+                }
+                @*<a href="#"><i class="fa fa-circle text-success"></i> Online</a>*@
             </div>
         </div>
         <ul class="sidebar-menu" style=" height: auto; overflow: hidden; width: auto; padding-bottom: 20%;">
@@ -95,6 +103,12 @@
                     <i class="fa fa-database"></i>
                     <span>Payroll</span>                    
                 </a>                
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "POS")">
+                    <i class="fa fa-database"></i>
+                    <span>Cashier</span>
+                </a>
             </li>
         </ul>
     </section>

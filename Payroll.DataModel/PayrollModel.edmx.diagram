@@ -26,6 +26,7 @@
         <AssociationConnector Association="Payroll.DataModel.FK_SalaryDefaultValue_JobPosition" ManuallyRouted="false" />
         <AssociationConnector Association="Payroll.DataModel.FK_SalaryDefaultValue_SalaryComponent" ManuallyRouted="false" />
         <AssociationConnector Association="Payroll.DataModel.FK_SellingDetail_SellingHeader" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Payroll.DataModel.User" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
