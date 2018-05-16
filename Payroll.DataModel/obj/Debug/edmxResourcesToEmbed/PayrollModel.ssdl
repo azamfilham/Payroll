@@ -191,6 +191,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Role" Type="varchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_Department_Division">
     <End Role="Division" Type="Self.Division" Multiplicity="1" />

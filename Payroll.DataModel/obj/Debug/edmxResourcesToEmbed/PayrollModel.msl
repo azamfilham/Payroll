@@ -200,6 +200,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="Payroll.DataModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Role" ColumnName="Role" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Id" ColumnName="Id" />

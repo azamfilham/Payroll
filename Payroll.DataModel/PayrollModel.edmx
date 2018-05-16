@@ -196,6 +196,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Department_Division">
           <End Role="Division" Type="Self.Division" Multiplicity="1" />
@@ -728,6 +729,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -934,6 +936,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Payroll.DataModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

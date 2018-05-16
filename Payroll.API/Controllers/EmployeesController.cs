@@ -21,7 +21,7 @@ namespace Payroll.API.Controllers
         public EmployeeViewModel Get(int id)
         {
             return EmployeeRepo.GetById(id);
-        }
+        }               
 
         // POST api/<controller>
         public Responses Post([FromBody]EmployeeViewModel entity)

@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace Payroll.MVC.Controllers
-{
+{    
     public class EmployeeController : Controller
     {
         // GET: Employee
@@ -23,8 +23,7 @@ namespace Payroll.MVC.Controllers
         }
 
         public ActionResult Create()
-        {
-            ViewBag.JobPositionList = new SelectList(JobPositionRepo.Get(), "Id", "Description");
+        {            
             return View("_Create");
         }
 
@@ -50,7 +49,7 @@ namespace Payroll.MVC.Controllers
         //GET Edit
         public ActionResult Edit(int id)
         {
-            ViewBag.JobPositionList = new SelectList(JobPositionRepo.Get(), "Id", "Description");
+            //ViewBag.DivisionList = new SelectList(DivisionRepo.Get(), "Id", "Description");            
             return View("_Edit", EmployeeRepo.GetById(id));
         }
 

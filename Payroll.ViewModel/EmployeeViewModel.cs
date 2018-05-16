@@ -33,6 +33,42 @@ namespace Payroll.ViewModel
             }
         }
 
+        [Display(Name = "Department")]
+        public int DepartmentId { get; set; }
+
+        [Display(Name = "Department")]
+        public string DepartmentName { get; set; }
+
+        [Display(Name = "Department")]
+        public string DepartmentCode { get; set; }
+
+        [Display(Name = "Department")]
+        public string DepCodeName
+        {
+            get
+            {
+                return "[" + DepartmentCode + "] " + DepartmentName;
+            }
+        }
+
+        [Display(Name = "Division")]
+        public int DivisionId { get; set; }
+
+        [Display(Name = "Division")]
+        public string DivisionName { get; set; }
+
+        [Display(Name = "Division")]
+        public string DivisionCode { get; set; }
+
+        [Display(Name = "Division")]
+        public string DivCodeName
+        {
+            get
+            {
+                return "[" + DivisionCode + "] " + DivisionName;
+            }
+        }
+
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 

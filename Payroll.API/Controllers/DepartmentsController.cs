@@ -23,6 +23,13 @@ namespace Payroll.API.Controllers
             return DepartmentRepo.GetById(id);
         }
 
+        [HttpGet]
+        [Route("~/api/departments/division/{DivId}")]
+        public IEnumerable<DepartmentViewModel> GetByDiv(int DivId)
+        {
+            return DepartmentRepo.GetByDivId(DivId);
+        }
+
         // POST api/<controller>
         public Responses Post([FromBody]DepartmentViewModel entity)
         {

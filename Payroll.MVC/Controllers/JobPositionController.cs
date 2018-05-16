@@ -22,8 +22,7 @@ namespace Payroll.MVC.Controllers
         }
 
         public ActionResult Create()
-        {
-            ViewBag.DepartmentList = new SelectList(DepartmentRepo.Get(), "Id", "Description");
+        {            
             return View("_Create");
         }
 
@@ -48,8 +47,7 @@ namespace Payroll.MVC.Controllers
 
         //GET Edit
         public ActionResult Edit(int Id)
-        {
-            ViewBag.DepartmentList = new SelectList(DepartmentRepo.Get(), "Id", "Description");
+        {            
             return View("_Edit", JobPositionRepo.GetById(Id));
         }
 
