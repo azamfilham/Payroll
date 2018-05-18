@@ -207,5 +207,35 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AccessControl">
+      <EntityTypeMapping TypeName="Payroll.DataModel.AccessControl">
+        <MappingFragment StoreEntitySet="AccessControl">
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Menu" ColumnName="Menu" />
+          <ScalarProperty Name="Controller" ColumnName="Controller" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrPosition">
+      <EntityTypeMapping TypeName="Payroll.DataModel.TrPosition">
+        <MappingFragment StoreEntitySet="TrPosition">
+          <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+          <ScalarProperty Name="ACId" ColumnName="ACId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrUserAccess">
+      <EntityTypeMapping TypeName="Payroll.DataModel.TrUserAccess">
+        <MappingFragment StoreEntitySet="TrUserAccess">
+          <ScalarProperty Name="Right" ColumnName="Right" />
+          <ScalarProperty Name="ACId" ColumnName="ACId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

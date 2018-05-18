@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using Payroll.MVC.Security;
 namespace Payroll.MVC.Controllers
-{    
+{
+    [CustomAuthorize(Roles = "Employee")]
     public class EmployeeController : Controller
     {
         // GET: Employee

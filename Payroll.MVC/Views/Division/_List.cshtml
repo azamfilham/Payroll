@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Payroll.ViewModel.DivisionViewModel>
 
+@using Payroll.MVC.Security;
+@using Payroll.Repository;
 @{
     Layout = "";
 }
@@ -32,50 +34,68 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.IsActivated)
                 </td>
-                <td>
-                    <div class="btn-group btn-group-sm">
-                        <button type="button" class="btn btn-warning btn-Edit" data-id="@item.Id" title="Edit">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-Delete" data-id="@item.Id" title="Delete">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
-                    </div>
+                @if (Request.IsAuthenticated)
+                {
+                    var level = AccountRepo.GetAccessRight(SessionPersister.Username, "Division");
+                    if (level.AccessLevel == "W")
+                    {
+                        <td>
+
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-warning btn-Edit" data-id="@item.Id" title="Edit">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-Delete" data-id="@item.Id" title="Delete">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </td>
+                    }
+                }
+
             </tr>
         }
     </tbody>
 </table>
 
-<script type="text/javascript">
-    $("#data-list").DataTable();
-    $(".btn-Edit").click(function () {
-        //alert($(this).attr("data-id"));
 
-        $.ajax({
-            url: '@Url.Action("Edit","Division")',
-            type: 'get',
-            data: { id: $(this).attr("data-id") },
-            success: function (result) {
-                $(".modal-body").html(result);
-                $(".modal-title").html("Edit Division");
-                $("#modal-Form").modal("show");
-            }
-        })
-    })  
+@if (Request.IsAuthenticated)
+{
+    var level = AccountRepo.GetAccessRight(SessionPersister.Username, "Division");
+    if (level.AccessLevel == "W")
+    {
+        <script type="text/javascript">
+            $("#data-list").DataTable();
+            $(".btn-Edit").click(function () {
+                //alert($(this).attr("data-id"));
 
-    $(".btn-Delete").click(function () {
-        //alert($(this).attr("data-id"));
+                $.ajax({
+                    url: '@Url.Action("Edit", "Division")',
+                    type: 'get',
+                    data: { id: $(this).attr("data-id") },
+                    success: function (result) {
+                        $(".modal-body").html(result);
+                        $(".modal-title").html("Edit Division");
+                        $("#modal-Form").modal("show");
+                    }
+                })
+            })
 
-        $.ajax({
-            url: '@Url.Action("Delete","Division")',
-            type: 'get',
-            data: { id: $(this).attr("data-id") },
-            success: function (result) {
-                $(".modal-body").html(result);
-                $(".modal-title").html("Delete Division");
-                $("#modal-Form").modal("show");
-            }
-        })
-    })
+            $(".btn-Delete").click(function () {
+                //alert($(this).attr("data-id"));
 
-</script>
+                $.ajax({
+                    url: '@Url.Action("Delete", "Division")',
+                    type: 'get',
+                    data: { id: $(this).attr("data-id") },
+                    success: function (result) {
+                        $(".modal-body").html(result);
+                        $(".modal-title").html("Delete Division");
+                        $("#modal-Form").modal("show");
+                    }
+                })
+            })
+
+        </script>
+    }
+}

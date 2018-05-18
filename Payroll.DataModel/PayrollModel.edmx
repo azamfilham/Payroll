@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Payroll.DataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessControl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Controller" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Menu" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Icon" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Attendance">
           <Key>
             <PropertyRef Name="Id" />
@@ -189,6 +198,24 @@
           <Property Name="ModifyBy" Type="varchar" MaxLength="50" />
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="TrPosition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ACId" Type="int" Nullable="false" />
+          <Property Name="PositionId" Type="int" />
+        </EntityType>
+        <EntityType Name="TrUserAccess">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ACId" Type="int" Nullable="false" />
+          <Property Name="Right" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -306,7 +333,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TrPosition_AccessControl">
+          <End Role="AccessControl" Type="Self.AccessControl" Multiplicity="1" />
+          <End Role="TrPosition" Type="Self.TrPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessControl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrPosition">
+              <PropertyRef Name="ACId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrPosition_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="TrPosition" Type="Self.TrPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrPosition">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrUserAccess_AccessControl">
+          <End Role="AccessControl" Type="Self.AccessControl" Multiplicity="1" />
+          <End Role="TrUserAccess" Type="Self.TrUserAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessControl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrUserAccess">
+              <PropertyRef Name="ACId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrUserAccess_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="TrUserAccess" Type="Self.TrUserAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrUserAccess">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PayrollDataModelStoreContainer">
+          <EntitySet Name="AccessControl" EntityType="Self.AccessControl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
@@ -319,6 +395,8 @@
           <EntitySet Name="SalaryDefaultValue" EntityType="Self.SalaryDefaultValue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SellingDetail" EntityType="Self.SellingDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SellingHeader" EntityType="Self.SellingHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrPosition" EntityType="Self.TrPosition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrUserAccess" EntityType="Self.TrUserAccess" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Department_Division" Association="Self.FK_Department_Division">
             <End Role="Division" EntitySet="Division" />
@@ -355,6 +433,22 @@
           <AssociationSet Name="FK_SellingDetail_SellingHeader" Association="Self.FK_SellingDetail_SellingHeader">
             <End Role="SellingHeader" EntitySet="SellingHeader" />
             <End Role="SellingDetail" EntitySet="SellingDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrPosition_AccessControl" Association="Self.FK_TrPosition_AccessControl">
+            <End Role="AccessControl" EntitySet="AccessControl" />
+            <End Role="TrPosition" EntitySet="TrPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrPosition_Users" Association="Self.FK_TrPosition_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TrPosition" EntitySet="TrPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrUserAccess_AccessControl" Association="Self.FK_TrUserAccess_AccessControl">
+            <End Role="AccessControl" EntitySet="AccessControl" />
+            <End Role="TrUserAccess" EntitySet="TrUserAccess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrUserAccess_Users" Association="Self.FK_TrUserAccess_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TrUserAccess" EntitySet="TrUserAccess" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -721,6 +815,25 @@
             <End Role="SellingDetail" EntitySet="SellingDetails" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="Payroll.DataModel.User" />
+          <EntitySet Name="AccessControl" EntityType="Payroll.DataModel.AccessControl" />
+          <EntitySet Name="TrPosition" EntityType="Payroll.DataModel.TrPosition" />
+          <EntitySet Name="TrUserAccess" EntityType="Payroll.DataModel.TrUserAccess" />
+          <AssociationSet Name="FK_TrPosition_AccessControl" Association="Payroll.DataModel.FK_TrPosition_AccessControl">
+            <End Role="AccessControl" EntitySet="AccessControl" />
+            <End Role="TrPosition" EntitySet="TrPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrUserAccess_AccessControl" Association="Payroll.DataModel.FK_TrUserAccess_AccessControl">
+            <End Role="AccessControl" EntitySet="AccessControl" />
+            <End Role="TrUserAccess" EntitySet="TrUserAccess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrPosition_Users" Association="Payroll.DataModel.FK_TrPosition_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="TrPosition" EntitySet="TrPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrUserAccess_Users" Association="Payroll.DataModel.FK_TrUserAccess_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="TrUserAccess" EntitySet="TrUserAccess" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -730,7 +843,90 @@
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TrPosition" Relationship="Payroll.DataModel.FK_TrPosition_Users" FromRole="User" ToRole="TrPosition" />
+          <NavigationProperty Name="TrUserAccess" Relationship="Payroll.DataModel.FK_TrUserAccess_Users" FromRole="User" ToRole="TrUserAccess" />
         </EntityType>
+        <EntityType Name="AccessControl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Controller" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Menu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TrPosition" Relationship="Payroll.DataModel.FK_TrPosition_AccessControl" FromRole="AccessControl" ToRole="TrPosition" />
+          <NavigationProperty Name="TrUserAccess" Relationship="Payroll.DataModel.FK_TrUserAccess_AccessControl" FromRole="AccessControl" ToRole="TrUserAccess" />
+        </EntityType>
+        <EntityType Name="TrPosition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ACId" Type="Int32" Nullable="false" />
+          <Property Name="PositionId" Type="Int32" />
+          <NavigationProperty Name="AccessControl" Relationship="Payroll.DataModel.FK_TrPosition_AccessControl" FromRole="TrPosition" ToRole="AccessControl" />
+          <NavigationProperty Name="Users" Relationship="Payroll.DataModel.FK_TrPosition_Users" FromRole="TrPosition" ToRole="User" />
+        </EntityType>
+        <EntityType Name="TrUserAccess">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ACId" Type="Int32" Nullable="false" />
+          <Property Name="Right" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AccessControl" Relationship="Payroll.DataModel.FK_TrUserAccess_AccessControl" FromRole="TrUserAccess" ToRole="AccessControl" />
+          <NavigationProperty Name="Users" Relationship="Payroll.DataModel.FK_TrUserAccess_Users" FromRole="TrUserAccess" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_TrPosition_AccessControl">
+          <End Type="Payroll.DataModel.AccessControl" Role="AccessControl" Multiplicity="1" />
+          <End Type="Payroll.DataModel.TrPosition" Role="TrPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessControl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrPosition">
+              <PropertyRef Name="ACId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrUserAccess_AccessControl">
+          <End Type="Payroll.DataModel.AccessControl" Role="AccessControl" Multiplicity="1" />
+          <End Type="Payroll.DataModel.TrUserAccess" Role="TrUserAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessControl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrUserAccess">
+              <PropertyRef Name="ACId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrPosition_Users">
+          <End Type="Payroll.DataModel.User" Role="User" Multiplicity="1" />
+          <End Type="Payroll.DataModel.TrPosition" Role="TrPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrPosition">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrUserAccess_Users">
+          <End Type="Payroll.DataModel.User" Role="User" Multiplicity="1" />
+          <End Type="Payroll.DataModel.TrUserAccess" Role="TrUserAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrUserAccess">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -943,6 +1139,36 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AccessControl">
+            <EntityTypeMapping TypeName="Payroll.DataModel.AccessControl">
+              <MappingFragment StoreEntitySet="AccessControl">
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Menu" ColumnName="Menu" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrPosition">
+            <EntityTypeMapping TypeName="Payroll.DataModel.TrPosition">
+              <MappingFragment StoreEntitySet="TrPosition">
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="ACId" ColumnName="ACId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrUserAccess">
+            <EntityTypeMapping TypeName="Payroll.DataModel.TrUserAccess">
+              <MappingFragment StoreEntitySet="TrUserAccess">
+                <ScalarProperty Name="Right" ColumnName="Right" />
+                <ScalarProperty Name="ACId" ColumnName="ACId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -957,7 +1183,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

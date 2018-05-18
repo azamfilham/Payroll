@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountViewModel.cs" />
     <Compile Include="AttendanceViewModel.cs" />
+    <Compile Include="WRPrivilegeFormsViewModel.cs" />
     <Compile Include="DepartmentViewModel.cs" />
     <Compile Include="DivisionViewModel.cs" />
     <Compile Include="EmployeeViewModel.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="JobPositionViewModel.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="PayrollPeriodViewModel.cs" />
+    <Compile Include="PrivilegeFormsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses.cs" />
     <Compile Include="SalaryComponentViewModel.cs" />

@@ -360,6 +360,25 @@
       <End Role="SellingDetail" EntitySet="SellingDetails" />
     </AssociationSet>
     <EntitySet Name="Users" EntityType="Payroll.DataModel.User" />
+    <EntitySet Name="AccessControl" EntityType="Payroll.DataModel.AccessControl" />
+    <EntitySet Name="TrPosition" EntityType="Payroll.DataModel.TrPosition" />
+    <EntitySet Name="TrUserAccess" EntityType="Payroll.DataModel.TrUserAccess" />
+    <AssociationSet Name="FK_TrPosition_AccessControl" Association="Payroll.DataModel.FK_TrPosition_AccessControl">
+      <End Role="AccessControl" EntitySet="AccessControl" />
+      <End Role="TrPosition" EntitySet="TrPosition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrUserAccess_AccessControl" Association="Payroll.DataModel.FK_TrUserAccess_AccessControl">
+      <End Role="AccessControl" EntitySet="AccessControl" />
+      <End Role="TrUserAccess" EntitySet="TrUserAccess" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrPosition_Users" Association="Payroll.DataModel.FK_TrPosition_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TrPosition" EntitySet="TrPosition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrUserAccess_Users" Association="Payroll.DataModel.FK_TrUserAccess_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TrUserAccess" EntitySet="TrUserAccess" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="User">
     <Key>
@@ -369,5 +388,88 @@
     <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TrPosition" Relationship="Payroll.DataModel.FK_TrPosition_Users" FromRole="User" ToRole="TrPosition" />
+    <NavigationProperty Name="TrUserAccess" Relationship="Payroll.DataModel.FK_TrUserAccess_Users" FromRole="User" ToRole="TrUserAccess" />
   </EntityType>
+  <EntityType Name="AccessControl">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Controller" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Menu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TrPosition" Relationship="Payroll.DataModel.FK_TrPosition_AccessControl" FromRole="AccessControl" ToRole="TrPosition" />
+    <NavigationProperty Name="TrUserAccess" Relationship="Payroll.DataModel.FK_TrUserAccess_AccessControl" FromRole="AccessControl" ToRole="TrUserAccess" />
+  </EntityType>
+  <EntityType Name="TrPosition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ACId" Type="Int32" Nullable="false" />
+    <Property Name="PositionId" Type="Int32" />
+    <NavigationProperty Name="AccessControl" Relationship="Payroll.DataModel.FK_TrPosition_AccessControl" FromRole="TrPosition" ToRole="AccessControl" />
+    <NavigationProperty Name="Users" Relationship="Payroll.DataModel.FK_TrPosition_Users" FromRole="TrPosition" ToRole="User" />
+  </EntityType>
+  <EntityType Name="TrUserAccess">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ACId" Type="Int32" Nullable="false" />
+    <Property Name="Right" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AccessControl" Relationship="Payroll.DataModel.FK_TrUserAccess_AccessControl" FromRole="TrUserAccess" ToRole="AccessControl" />
+    <NavigationProperty Name="Users" Relationship="Payroll.DataModel.FK_TrUserAccess_Users" FromRole="TrUserAccess" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_TrPosition_AccessControl">
+    <End Type="Payroll.DataModel.AccessControl" Role="AccessControl" Multiplicity="1" />
+    <End Type="Payroll.DataModel.TrPosition" Role="TrPosition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccessControl">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrPosition">
+        <PropertyRef Name="ACId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrUserAccess_AccessControl">
+    <End Type="Payroll.DataModel.AccessControl" Role="AccessControl" Multiplicity="1" />
+    <End Type="Payroll.DataModel.TrUserAccess" Role="TrUserAccess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccessControl">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrUserAccess">
+        <PropertyRef Name="ACId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrPosition_Users">
+    <End Type="Payroll.DataModel.User" Role="User" Multiplicity="1" />
+    <End Type="Payroll.DataModel.TrPosition" Role="TrPosition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrPosition">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrUserAccess_Users">
+    <End Type="Payroll.DataModel.User" Role="User" Multiplicity="1" />
+    <End Type="Payroll.DataModel.TrUserAccess" Role="TrUserAccess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrUserAccess">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

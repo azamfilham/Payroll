@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Payroll.MVC.Security;
 
 namespace Payroll.MVC.Controllers
 {
-    [Authorize]
+    [CustomAuthorize(Roles = "Division")]
     public class DivisionController : Controller
     {
         // GET: Division
@@ -23,6 +24,7 @@ namespace Payroll.MVC.Controllers
             return View("_List", DivisionRepo.Get());
         }
 
+        [CustomAuthorize(Roles = "Division", AccessLevel = "W")]
         //GET CREATE
         public ActionResult Create()
         {
@@ -48,6 +50,7 @@ namespace Payroll.MVC.Controllers
             return Json(new { succes = false, message = "Invalid" }, JsonRequestBehavior.AllowGet);
         }
 
+        [CustomAuthorize(Roles = "Division", AccessLevel = "W")]
         //GET EDIT
         public ActionResult Edit(int id)
         {
